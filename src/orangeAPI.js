@@ -26,4 +26,23 @@ async function getToken() {
     accessToken = res.data['access_token'];
     console.log(accessToken);
 }
-getToken();
+
+async function getEmployeeList(token){
+    const config = {
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json',
+          'Token': ''+token,
+      }
+    };
+    try{
+        const res = await axios.get("${baseUrl/api/v1/employee/search'}",config);
+    }catch (e) {
+        console.log(e);
+    }
+}
+getToken().then(
+    function(){getEmployeeList().then(r => console.log(r));},
+);
+
+
