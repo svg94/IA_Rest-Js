@@ -121,6 +121,18 @@ async function postNewProduct(){
     };
     const contactsPost = await axios.post(`${baseUrl}/org.opencrx.kernel.product1/provider/CRX/segment/Standard/product/12`,body ,config);
 }
+async function delNewProduct(){
+    const baseUrl = 'https://sepp-crm.inf.h-brs.de/opencrx-rest-CRX';
+    const credentials = {
+        username: 'guest',
+        password: 'guest',
+    };
+    const config = {
+        headers: {'Accept': 'application/json'},
+        auth: credentials,
+    };
+    const contactsPost = await axios.delete(`${baseUrl}/org.opencrx.kernel.product1/provider/CRX/segment/Standard/product/12` ,config);
+}
 app.get('/customers',(req,res)=>{
     getAllCustomers().then(function(respond){
         res.send(respond);
@@ -134,8 +146,13 @@ app.get('/products',(req,res)=>{
 
 app.get('/addProduct',(req,res)=>{
    postNewProduct().then(function(respond){
-     res.send(respond);
+     res.send("Added Product.");
    });
+});
+app.get('/rmvProduct',(req,res)=>{
+    delNewProduct().then(function(respond){
+        res.send("Removed Product");
+    });
 });
 
 app.listen(8081,()=>{
